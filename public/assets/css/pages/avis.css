@@ -1,0 +1,299 @@
+:root{
+    --color-primary: #009933;
+    --color-primary-dark: #006d25;
+    --color-primary-dark-dg: #006d2477;
+    --color-secondary: #e3b022;
+    --color-secondary-dark: rgb(214, 165, 31);
+    --color-white: #fff;
+    --color-black: #1a1a2e;
+    --color-gray: #a0aec0;
+  }
+
+  *{
+    box-sizing:border-box; 
+    font-family: 'Montserrat', sans-serif;
+    margin:0; 
+    padding:0;
+  }
+
+  html,body{
+    width:100%;
+  }
+
+  body{
+    margin:0;
+  }
+
+  .navbar{
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .nav-links li a{
+    color: #fff !important;
+  }
+
+  .nav-links li a:hover{
+    color: #b8fdc4 !important;
+  }
+
+  .head{
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 60px;
+    box-sizing: border-box;
+
+    /* Dégradé qui part du noir (0.75) en haut vers le transparent total (0) en bas */
+    background-image: linear-gradient(
+      to bottom, 
+      rgba(0, 0, 0, 0.7) 0%,   
+      rgba(0, 0, 0, 0.5) 40%,    
+      rgba(0, 0, 0, 0) 100%    
+    ), 
+    url('../../img/avis/head.jpeg');
+    
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* ---------------- Info / form section ---------------- */
+  .info-section{
+    display:flex;
+    padding: 22px 7%;
+    align-items:flex-start;
+  }
+
+  .form-col{
+    flex: 1;
+  }
+
+  .form-col h2{
+    color: var(--color-primary);
+    font-size: 19px;
+    font-weight:700;
+    margin-bottom: 14px;
+  }
+
+  form{ 
+    display:flex; 
+    flex-direction:column; 
+    gap:10px; 
+    max-width: 480px;
+  }
+
+  .row-2{
+    display:flex; 
+    gap:10px;
+  }
+
+  .row-2 input{
+    flex:1; 
+    min-width:0;
+  }
+
+  input[type="text"], input[type="email"], input[type="tel"], textarea{
+    width:100%;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    padding: 10px 10px;
+    font-size: clamp(0.8rem, 0.85rem, 17px);
+    font-family: inherit;
+    color: var(--color-primary-dark);
+    background:#fff;
+    font-weight: 500;
+    caret-color: var(--color-secondary-dark);
+  }
+
+  input::placeholder, textarea::placeholder{
+    color: var(--color-primary-dark-dg);
+  }
+
+  input:focus::placeholder, textarea:focus::placeholder {
+    color: var(--color-secondary-dark);
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--color-secondary-dark);
+    color: var(--color-secondary-dark);
+    outline: none; /* Enlève le contour bleu par défaut du navigateur */
+  }
+
+  textarea{
+    min-height: 90px; resize: vertical;
+  }
+
+  .mention-label{
+    color: var(--color-primary);
+    font-weight:600;
+    margin-top: 4px;
+  }
+  .star-rating{
+    display:flex;
+    gap: 4px;
+    margin: 4px 0 6px;
+  }
+  .star-rating svg{
+    width: 24px; height:24px;
+    cursor:pointer;
+    stroke: var(--color-secondary);
+    stroke-width: 1.5;
+    fill: none;
+    transition: fill .15s ease;
+  } 
+  .star-rating svg.filled{
+    fill: var(--color-secondary);
+  }
+
+  .btn-envoyer{
+    align-self:flex-start;
+    background: var(--color-primary);
+    color:#fff;
+    border:none;
+    font-weight:700;
+    font-size: clamp(1rem, 1rem, 2rem);
+    padding: 8px 26px;
+    border-radius: 15px;
+    cursor:pointer;
+    box-shadow: 0 3px 0 var(--color-primary-dark);
+    transition: transform .12s ease;
+  } 
+
+  .btn-envoyer:hover{ 
+    transform: translateY(-1px);
+  }
+
+  .btn-envoyer:active{
+    transform: translateY(1px); 
+    box-shadow:0 1px 0 var(--color-primary-dark);
+    outline: none;
+  }
+
+  .btn-envoyer:focus-visible {
+    outline: 2px solid var(--color-primary-dark); /* Utilise de l'or pour rester dans le thème de votre placeholder ! */
+  }
+
+  /* ---------------- Photo grid ---------------- */
+  .photo-col{
+    flex: 1;
+  }
+  
+  .photo-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .photo-grid img{
+    width:100%;
+    height: 180px;
+    object-fit:cover;
+    border-radius: 4px;
+    display:block;
+    border-radius: 15px;
+  }
+
+  /* ---------------- Cinema banner ---------------- */
+  .cinema-section{
+    position:relative;
+    width:100%;
+    line-height:0;
+  }
+  .cinema-section img{
+    width:100%;
+    height: 340px;
+    object-fit:cover;
+    display:block;
+  }
+  .home-btn{
+    position:absolute;
+    right: 22px;
+    cursor:pointer;
+    bottom: -22px;
+    width: 53px; height:53px;
+    border-radius:50%;
+    background: var(--color-primary);
+    border: 2px solid #fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.35);
+    cursor:pointer;
+  }
+.home-btn svg{ width:25px; height:25px; stroke:#fff; fill:none; stroke-width:2; }
+
+  .page-bottom-space{ height: 40px; }
+
+  /* ---------------- Mobile (cap5) ---------------- */
+  @media (max-width: 760px){
+    .head{
+      padding: 10px 30px;
+    }
+
+    .info-section{
+      padding: 16px 14px;
+      gap: 12px;
+    }
+
+    .photo-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .form-col h2{
+      font-size: 17px; 
+      line-height:1.25;
+    }
+
+    form{
+      max-width:none;
+    }
+
+    .row-2 input{
+      font-size:12px;
+      padding:7px 8px;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], textarea{
+      font-size:12px; 
+      padding:7px 8px;
+    }
+
+    textarea{
+      min-height:70px;
+    }
+
+    .star-rating svg{ 
+      width:18px; 
+      height:18px;
+    }
+
+    .btn-envoyer{
+      font-size:12px; 
+      padding:8px 20px;
+    }
+
+    .photo-col{
+      flex: 0.8;
+    }
+
+    .photo-grid{
+      grid-template-columns: 1fr;
+    }
+
+    .photo-grid img{
+      height: 78px;
+    }
+
+    .cinema-section img{
+      height: 180px;
+    }
+
+    .home-btn{
+      width:38px; height:38px;
+      right:12px; bottom:-14px;
+    }
+    .home-btn svg{ width:16px; height:16px; }
+  }

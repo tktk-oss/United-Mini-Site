@@ -1,0 +1,128 @@
+:root {
+    /* ===== COULEURS ===== */
+    --color-primary: #009933;
+    --color-primary-dark: #006d25;
+    --color-secondary: #e3b022;
+    --color-secondary-dark: rgb(214, 165, 31);
+    --color-white: #fff;
+    --color-black: #1a1a2e;
+    --color-gray: #a0aec0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin:0;
+}
+
+/* ------------------ nav ------------------- */
+.navbar{
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
+.nav-links li a{
+    color: #fff !important;
+}
+
+.nav-links li a:hover{
+    color: #b8fdc4 !important;
+}
+
+/* ------------------ nav ------------------- */
+
+.head{
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 60px;
+  box-sizing: border-box;
+
+  /* Dégradé qui part du noir (0.75) en haut vers le transparent total (0) en bas */
+  background-image: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.9) 0%,   /* Sombre en haut */
+    rgba(0, 0, 0, 0.5) 40%,    /* S'éclaircit au milieu */
+    rgba(0, 0, 0, 0) 100%      /* Totalement invisible en bas */
+  ), 
+  url('../../img/restau/restau1.jpeg');
+  
+  background-size: cover;
+  background-position: center;
+}
+
+.title-section{
+    display: flex;
+    font-size: clamp(2rem, 2.5rem, 3rem);
+    color: var(--color-primary);
+    margin-top: 10px;
+    font-weight: 700;
+    justify-content: center;
+}
+
+.title-section strong{
+    color: var(--color-secondary);
+    margin: 0 10px;
+}
+
+.btn-accueil{ 
+    width: 50%;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    transition:background .25s ease, transform .25s ease;
+}
+
+.btn-accueil i{
+    font-size:2.5rem;
+    color: #97ffae;
+}
+
+.btn-accueil i:hover{
+    color: var(--color-primary);
+    transition: color 0.2s linear;
+}
+
+.foot{
+    display: flex;
+    justify-content: space-between;
+    margin: 6% 4% 0 4%;
+}
+.description{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
+.description p{
+    color: var(--color-secondary-dark);
+}
+.description button{
+  aspect-ratio: 1 / 1; 
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 1rem, 1rem);
+  align-items: center;
+}
+.description button:hover{
+    background: var(--color-primary-dark);
+}
+
+@media (max-width:420px){
+    @media (max-width:420px){
+        .description p{
+            display: none;
+        } 
+        .title-section{
+            font-size: clamp(1.5rem, 1.5rem, 3rem);
+            margin-bottom: 30px;
+        }
+    }
+}

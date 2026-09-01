@@ -1,0 +1,59 @@
+/* ============================================
+    TITRE DE SECTION
+    ============================================ */
+.titre-section{
+    text-align:center;
+    color:var(--color-secondary);
+    font-size:1.8rem;
+    margin-bottom:30px;
+    margin-top: 20px;
+}
+
+/* ------------------TITRES DE CARTE------------------------------- */
+.carte-titre{
+    font-size:0.95rem;
+    text-align:left;
+    font-weight: 400;
+    color:var(--color-white);
+}
+
+/* ------------------ nav ------------------- */
+.nav-links li a{
+    color: #fff !important;
+}
+
+.nav-links li a:hover{
+    color: #b8fdc4 !important;
+}
+
+/* ------------------ bouton retour ------------------- */
+.btn-accueil{
+    border:none;
+    background:transparent;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background .25s ease, transform .25s ease;
+}
+.btn-accueil i{
+    font-size:50px;
+    color: var(--color-white);
+    margin: 15px;
+}
+.btn-accueil i:hover{
+    color: var(--color-primary);
+    transition: color 0.2s linear;
+}
+/* ------------------ body ------------------- */
+body{
+    font-family: 'Montserrat', sans-serif;  
+    margin:0;
+    padding:0;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+    url('../img/hotels/UHCC.jpeg');
+    
+    background-size:cover;
+    background-position: center;
+}

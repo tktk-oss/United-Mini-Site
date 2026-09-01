@@ -1,0 +1,294 @@
+/* ============================================
+            :ROOT & VARIABLES GLOBALES
+============================================ */
+:root {
+    /* ===== COULEURS ===== */
+    --color-primary-nav: #009933;
+    --color-primary-nav-dark: rgb(17, 138, 55);
+    --color-white: #ffffff;
+    --color-black: #1a1a2e;
+    --color-gray: #a0aec0;
+    --color-overlay: rgba(0, 0, 0, 0.5);
+
+    /* ===== NAVBAR ===== */
+    --navbar-height: 80px;
+    --navbar-height-mobile: 70px;
+    --navbar-height-small: 60px;
+    --navbar-padding: 50px 60px;
+    --navbar-padding-mobile: 20px 35px;
+    --navbar-padding-small: 20px 30px;
+    --navbar-bg: transparent;
+    --navbar-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    --navbar-blur: blur(10px);
+
+    /* ===== LOGO ===== */
+    --logo-size: 100px;
+    --logo-size-mobile: 70px;
+    --logo-size-small: 65px;
+
+    /* ===== LIENS ===== */
+    --link-color: var(--color-primary-nav);
+    --link-color-hover: var(--color-primary-nav-dark);
+    --link-font-size: clamp(16px, 1.8vw, 16px);
+    --link-gap: 40px;
+    --link-gap-mobile: 30px;
+    --link-padding: 8px 4px;
+    --link-padding-mobile: 10px 20px;
+    --link-padding-small: 8px 16px;
+    --link-font-weight: 600;
+    --link-underline-height: 2px;
+
+    /* ===== HAMBURGER ===== */
+    --hamburger-width: 28px;
+    --hamburger-width-small: 24px;
+    --hamburger-height: 3px;
+    --hamburger-height-small: 2.5px;
+    --hamburger-gap: 5px;
+    --hamburger-color: var(--color-primary-nav);
+
+    /* ===== MENU MOBILE ===== */
+    --menu-mobile-width: 70%;
+    --menu-mobile-max-width: 320px;
+    --menu-mobile-bg: rgba(26, 26, 46, 0.98);
+    --menu-mobile-blur: blur(15px);
+    --menu-mobile-border: 1px solid rgba(46, 204, 113, 0.15);
+    --menu-mobile-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+    --menu-mobile-radius: 8px;
+
+    /* ===== OVERLAY ===== */
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --overlay-blur: blur(3px);
+
+    /* ===== TRANSITIONS ===== */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slow: 0.5s ease;
+
+    /* ===== BODY ===== */
+    --body-font: myFirstFont;
+    --body-bg-start: #d4fade;
+    --body-bg-end: #fff;
+}
+
+/* ============================================
+            RESET & BASE
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================
+            NAVBAR PRINCIPALE
+============================================ */
+.navbar {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--navbar-height);
+    padding: var(--navbar-padding);
+    background: var(--navbar-bg);
+    position: relative;
+    z-index: 1000;
+    transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Version scrolled */
+.navbar.scrolled {
+    backdrop-filter: var(--navbar-blur);
+    box-shadow: var(--navbar-shadow);
+}
+
+/* ============================================
+            LOGO
+============================================ */
+.logo {
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: var(--logo-size);
+    width: var(--logo-size);
+    object-fit: contain;
+    display: block;
+}
+
+/* ============================================
+            MENU (liens de navigation)
+============================================ */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--link-gap);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    transition: all var(--transition-fast);
+}
+
+.nav-links li a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: var(--link-font-weight);
+    font-size: var(--link-font-size);
+    padding: var(--link-padding);
+    position: relative;
+    transition: color var(--transition-fast);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+
+    /* Préparation du trait invisible au centre */
+    background-image: linear-gradient(var(--color-primary), var(--color-primary));
+    background-size: 0% 2px; /* Largeur de 0% au départ (le trait est invisible) */
+    background-repeat: no-repeat;
+    background-position: center bottom; /* Force le départ depuis le milieu */
+    
+    /* La transition est prête, mais n'agit sur rien tant qu'on ne survole pas */
+    transition: background-size 0.3s ease;
+}
+
+.nav-links li a:hover {
+     background-size: 100% 2px;
+}
+
+/* ============================================
+            MENU HAMBURGER
+============================================ */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: var(--hamburger-gap);
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: var(--hamburger-width);
+    height: var(--hamburger-height);
+    background: var(--hamburger-color);
+    border-radius: 3px;
+    transition: all var(--transition-fast);
+    transform-origin: center;
+}
+
+/* Animation hamburger → croix */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* ============================================
+            OVERLAY (fond sombre derrière le menu)
+============================================ */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-bg);
+    backdrop-filter: var(--overlay-blur);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-fast);
+    z-index: 999;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+            RESPONSIVE - TABLETTE & MOBILE
+============================================ */
+@media (max-width: 992px) {
+    :root {
+        --link-gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    :root {
+        --navbar-height: var(--navbar-height-mobile);
+        --navbar-padding: var(--navbar-padding-mobile);
+        --logo-size: var(--logo-size-mobile);
+        --link-gap: var(--link-gap-mobile);
+        --link-padding: var(--link-padding-mobile);
+    }
+
+    /* Afficher le hamburger */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Menu caché par défaut sur mobile */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: var(--menu-mobile-width);
+        max-width: var(--menu-mobile-max-width);
+        height: 100vh;
+        background: var(--menu-mobile-bg);
+        backdrop-filter: var(--menu-mobile-blur);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--link-gap-mobile);
+        padding: 40px 20px;
+        transition: right var(--transition-medium);
+        box-shadow: var(--menu-mobile-shadow);
+        border-left: var(--menu-mobile-border);
+        border-radius: 0;
+    }
+
+    /* Menu ouvert */
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-links li a {
+        color: var(--link-color);
+        padding: var(--link-padding-mobile);
+        width: 100%;
+        text-align: center;
+        border-radius: var(--menu-mobile-radius);
+        transition: background var(--transition-fast), color var(--transition-fast);
+        white-space: normal;
+    }
+
+    .nav-links li a:hover {
+        background: rgba(46, 204, 113, 0.1);
+    }
+}
+
+/* ============================================
+            PETITS ÉCRANS (très petits mobiles)
+============================================ */
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: var(--navbar-height-small);
+        --navbar-padding: var(--navbar-padding-small);
+        --logo-size: var(--logo-size-small);
+        --link-padding: var(--link-padding-small);
+        --hamburger-width: var(--hamburger-width-small);
+        --hamburger-height: var(--hamburger-height-small);
+        --menu-mobile-width: 85%;
+        --menu-mobile-max-width: 280px;
+    }
+}

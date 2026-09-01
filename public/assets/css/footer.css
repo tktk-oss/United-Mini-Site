@@ -1,0 +1,144 @@
+:root {
+    /* ===== COULEURS ===== */
+    --color-primary-foot: #009933;
+    --color-primary-foot-dark: #008b2e;
+    --color-secondary: rgb(227, 176, 34);
+    --color-secondary-dark: rgb(214, 165, 31);
+    --color-white: #ffffff;
+    --color-black: #1a1a2e;
+    --color-gray: #a0aec0;
+}       
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+footer{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 21vh;
+    background-color: var(--color-primary-foot);
+    align-items: center;
+    padding: 0 50px 20px 50px;
+}
+.footer-btn {
+    font-family: 'Montserrat', sans-serif;
+    max-width:fit-content;
+    width:100%;
+    font-weight:500;
+    border-radius:10px;
+    flex: 1 1 auto;
+    font-size: clamp(0.5px, 1vw + 0.5rem, 1.1rem);
+    padding: clamp(3px, 1vh, 7px) clamp(5px, 1.5vw, 13px);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.social-zone{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:fit-content;
+}
+.follow-btn{
+    background: var(--color-white);
+    color:var(--color-primary-foot-dark);
+}
+.social-link{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-left:30px;
+}
+.social-link button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background:var(--color-white); 
+    border:none;
+}
+.social-link button a{
+    text-decoration: none;
+    color: var(--color-primary-foot-dark);
+    font-size: clamp(50%, 1vw + 0.5rem, 1.1rem);
+}
+.contact-link{
+    background: var(--color-secondary);
+    color:var(--color-white);
+    max-width:fit-content;
+    width:100%;
+    margin-right:20px;
+}
+
+.link{
+    text-decoration: none;
+    color: #ffffff;
+}
+/* -----------------------------------------------------------------------------------------
+MEDIA-QUERIES
+----------------------------------------------------------------------------------------- */
+@media screen and (min-width: 570px) and (max-width: 800px){
+footer{
+    padding: 0 20px 0 20px;
+    height: 10vh;
+    justify-content: space-around;
+}
+.social-link{
+    margin: 0 20px;
+}
+}
+
+@media screen and (min-width: 553px) and (max-width: 569px){
+footer{
+    padding: 0 20px 0 20px;
+    height: 10vh;
+    justify-content: space-around;
+}
+.social-link{
+    margin: 0 20px;
+}
+.footer-btn{
+    font-size: 0.8rem;
+}
+} 
+
+@media screen and (min-width: 450px) and (max-width: 552px){
+footer{
+    padding: 0 20px 0 20px;
+    justify-content: space-around;
+    height: 10vh;
+}
+.social-link{
+    margin: 0 20px;
+}
+.social-link button{
+    width: 30px;
+    height: 30px;
+}
+.footer-btn{
+    font-size: 0.6rem;
+} 
+}
+@media screen and (max-width: 449px){
+footer{
+    flex-direction: column; 
+    justify-content: start;
+    padding: 20px 20px;
+    height: 20vh;
+    gap: 20px;
+}
+.footer-btn{
+    font-size: 0.9rem;
+    text-align: center;
+}
+.social-link button a{
+    font-size: 0.9rem;
+}
+.contact-link{
+    height: 100px;
+    text-align: center;
+    height: 5vh;
+}
+}

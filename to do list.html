@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>To-Do List Pro · Mémoire locale</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background: #f4f6fa;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .app-card {
+      max-width: 700px;
+      width: 100%;
+      background: white;
+      border-radius: 36px;
+      box-shadow: 0 20px 40px rgba(0, 10, 30, 0.08), 0 8px 20px rgba(0, 0, 0, 0.04);
+      padding: 28px 24px 32px;
+      transition: 0.2s;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 640;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #0b1b33;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eef2f7;
+      padding-bottom: 18px;
+    }
+    h1 span {
+      background: #eef4ff;
+      padding: 4px 14px;
+      border-radius: 60px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1f4f8a;
+      margin-left: auto;
+    }
+    .input-area {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .input-area input {
+      flex: 2;
+      min-width: 180px;
+      padding: 16px 18px;
+      border: 1.5px solid #dce2ec;
+      border-radius: 40px;
+      font-size: 16px;
+      background: #fafcff;
+      transition: 0.15s;
+      outline: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    }
+    .input-area input:focus {
+      border-color: #2b6ed7;
+      background: white;
+      box-shadow: 0 4px 10px rgba(43, 110, 215, 0.08);
+    }
+    .input-area button {
+      flex: 0 0 auto;
+      padding: 16px 28px;
+      background: #1a4f8b;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 6px 14px rgba(26, 79, 139, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .input-area button:hover {
+      background: #0f3d70;
+      transform: scale(0.97);
+      box-shadow: 0 4px 10px rgba(26, 79, 139, 0.3);
+    }
+    .input-area button:active {
+      transform: scale(0.94);
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #3d516b;
+      background: #f2f6fe;
+      padding: 10px 18px;
+      border-radius: 40px;
+      margin-bottom: 22px;
+      font-weight: 480;
+    }
+    .stats span {
+      font-weight: 600;
+      color: #0b1b33;
+    }
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .filters button {
+      background: transparent;
+      border: 1.5px solid #d4deec;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2f405b;
+      cursor: pointer;
+      transition: 0.1s;
+      background: white;
+    }
+    .filters button.active {
+      background: #1a4f8b;
+      border-color: #1a4f8b;
+      color: white;
+      box-shadow: 0 2px 8px rgba(26, 79, 139, 0.2);
+    }
+    .filters button:active {
+      transform: scale(0.94);
+    }
+    .task-list {
+      list-style: none;
+      margin: 16px 0 8px;
+      max-height: 460px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .task-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f9fbfe;
+      padding: 12px 16px 12px 18px;
+      border-radius: 60px;
+      margin-bottom: 10px;
+      transition: 0.1s;
+      border: 1px solid #eef2f8;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+      backdrop-filter: blur(2px);
+    }
+    .task-list li:hover {
+      background: white;
+      border-color: #d0ddea;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+    .task-list li .task-text {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 470;
+      color: #14273e;
+      word-break: break-word;
+      padding: 4px 0;
+      transition: 0.1s;
+    }
+    .task-list li .task-text.completed {
+      text-decoration: line-through;
+      color: #7c8aa0;
+    }
+    .task-list li input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #1a4f8b;
+      cursor: pointer;
+      flex-shrink: 0;
+      border-radius: 30px;
+      transition: 0.1s;
+    }
+    .task-list li button.delete-btn {
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      line-height: 1;
+      color: #a7b9cf;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 40px;
+      transition: 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .task-list li button.delete-btn:hover {
+      color: #c73b3b;
+      background: #ffeeee;
+      transform: scale(1.1);
+    }
+    .task-list li button.delete-btn:active {
+      transform: scale(0.9);
+    }
+    .empty-message {
+      text-align: center;
+      color: #8697b0;
+      padding: 36px 10px 28px;
+      font-weight: 430;
+      letter-spacing: 0.2px;
+      background: #f9fbfe;
+      border-radius: 60px;
+      border: 1px dashed #d8e2ef;
+    }
+    .empty-message strong {
+      color: #2e4b73;
+    }
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+      gap: 12px;
+      border-top: 1px solid #e9eff6;
+      padding-top: 20px;
+    }
+    .footer-actions button {
+      background: transparent;
+      border: 1px solid #d4deec;
+      padding: 10px 22px;
+      border-radius: 60px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #345077;
+      cursor: pointer;
+      transition: 0.1s;
+      background: white;
+    }
+    .footer-actions button:active {
+      transform: scale(0.94);
+    }
+    .footer-actions button:hover {
+      background: #f0f5ff;
+      border-color: #a3bada;
+    }
+    #clear-all {
+      color: #a64a4a;
+      border-color: #f0d8d8;
+    }
+    #clear-all:hover {
+      background: #fff4f4;
+      border-color: #dba8a8;
+    }
+    @media (max-width: 460px) {
+      .app-card { padding: 22px 16px; }
+      .input-area input { min-width: 130px; }
+      .input-area button { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-card" role="main">
+  <h1>
+    📋 To-Do Pro
+    <span id="task-counter">0</span>
+  </h1>
+
+  <div class="input-area">
+    <input type="text" id="task-input" placeholder="Ajouter une tâche..." autofocus>
+    <button id="add-task-btn">➕ Ajouter</button>
+  </div>
+
+  <div class="stats">
+    <span>✅ <span id="completed-count">0</span> terminées</span>
+    <span>⏳ <span id="pending-count">0</span> en cours</span>
+  </div>
+
+  <div class="filters">
+    <button class="active" data-filter="all">Toutes</button>
+    <button data-filter="active">À faire</button>
+    <button data-filter="completed">Terminées</button>
+  </div>
+
+  <ul class="task-list" id="task-list">
+    <!-- Les tâches sont injectées ici -->
+  </ul>
+
+  <div class="footer-actions">
+    <button id="clear-all">🗑️ Supprimer tout</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    // ----- Éléments DOM -----
+    const taskInput = document.getElementById('task-input');
+    const addBtn = document.getElementById('add-task-btn');
+    const taskList = document.getElementById('task-list');
+    const taskCounter = document.getElementById('task-counter');
+    const completedCountSpan = document.getElementById('completed-count');
+    const pendingCountSpan = document.getElementById('pending-count');
+    const filterBtns = document.querySelectorAll('.filters button');
+    const clearAllBtn = document.getElementById('clear-all');
+
+    // ----- État -----
+    let tasks = [];                 // [{ id, text, completed }]
+    let currentFilter = 'all';      // 'all', 'active', 'completed'
+
+    // ----- Clé localStorage -----
+    const STORAGE_KEY = 'todo_pro_app_tasks';
+
+    // ----- Chargement depuis localStorage -----
+    function loadTasksFromStorage() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length) {
+            tasks = parsed;
+            return;
+          }
+        } catch (_) { /* ignore */ }
+      }
+      // Données par défaut (exemple)
+      tasks = [
+        { id: Date.now() + 1, text: 'Bienvenue dans To-Do Pro', completed: false },
+        { id: Date.now() + 2, text: 'Ajoutez vos tâches ci-dessus', completed: false },
+        { id: Date.now() + 3, text: 'Elles sont sauvegardées automatiquement', completed: true },
+      ];
+    }
+
+    // ----- Sauvegarde dans localStorage -----
+    function saveTasksToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    // ----- Générer un ID unique -----
+    function generateId() {
+      return Date.now() + Math.floor(Math.random() * 10000);
+    }
+
+    // ----- Mettre à jour les compteurs et l'UI des filtres -----
+    function updateStatsAndCounters() {
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.completed).length;
+      const pending = total - completed;
+
+      taskCounter.textContent = total;
+      completedCountSpan.textContent = completed;
+      pendingCountSpan.textContent = pending;
+    }
+
+    // ----- Filtrer les tâches selon le filtre actuel -----
+    function getFilteredTasks() {
+      if (currentFilter === 'all') return tasks;
+      if (currentFilter === 'active') return tasks.filter(t => !t.completed);
+      if (currentFilter === 'completed') return tasks.filter(t => t.completed);
+      return tasks;
+    }
+
+    // ----- Afficher les tâches -----
+    function render() {
+      // Vider la liste
+      taskList.innerHTML = '';
+
+      const filtered = getFilteredTasks();
+
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('li');
+        emptyMsg.className = 'empty-message';
+        emptyMsg.innerHTML = `<strong>✨ Aucune tâche</strong><br> 
+          ${currentFilter === 'all' ? 'Ajoutez votre première tâche !' :
+            currentFilter === 'active' ? 'Toutes vos tâches sont terminées ✅' : 
+            'Aucune tâche terminée pour le moment'}`;
+        taskList.appendChild(emptyMsg);
+      } else {
+        // Boucle sur les tâches filtrées
+        filtered.forEach(task => {
+          const li = document.createElement('li');
+          li.dataset.id = task.id;
+
+          // Checkbox
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = task.completed;
+          checkbox.addEventListener('change', function(e) {
+            // Mise à jour du statut
+            const taskId = parseInt(li.dataset.id);
+            const found = tasks.find(t => t.id === taskId);
+            if (found) {
+              found.completed = this.checked;
+              saveTasksToStorage();
+              // Mise à jour visuelle du texte
+              const textSpan = li.querySelector('.task-text');
+              if (textSpan) {
+                textSpan.classList.toggle('completed', found.completed);
+              }
+              updateStatsAndCounters();
+              // Re-render pour que le filtre soit cohérent (si on est sur "active" ou "completed")
+              // Mais on peut juste re-render entièrement pour rester cohérent
+              render();
+            }
+          });
+
+          // Texte de la tâche
+          const textSpan = document.createElement('span');
+          textSpan.className = 'task-text' + (task.completed ? ' completed' : '');
+          textSpan.textContent = task.text;
+
+          // Bouton supprimer
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.innerHTML = '✕';
+          deleteBtn.setAttribute('aria-label', 'Supprimer la tâche');
+          deleteBtn.addEventListener('click', function() {
+            const taskId = parseInt(li.dataset.id);
+            // Supprimer du tableau principal
+            tasks = tasks.filter(t => t.id !== taskId);
+            saveTasksToStorage();
+            updateStatsAndCounters();
+            render(); // re-render complet
+          });
+
+          li.appendChild(checkbox);
+          li.appendChild(textSpan);
+          li.appendChild(deleteBtn);
+          taskList.appendChild(li);
+        });
+      }
+
+      // Mettre à jour les compteurs (statistiques)
+      updateStatsAndCounters();
+
+      // Mettre à jour l'état actif des filtres (déjà fait via les event listeners)
+    }
+
+    // ----- Ajouter une tâche -----
+    function addTask() {
+      const text = taskInput.value.trim();
+      if (text === '') {
+        taskInput.focus();
+        return;
+      }
+
+      const newTask = {
+        id: generateId(),
+        text: text,
+        completed: false,
+      };
+      tasks.push(newTask);
+      saveTasksToStorage();
+      taskInput.value = '';
+      taskInput.focus();
+
+      // Si le filtre actif est "completed", on bascule sur "all" pour voir la nouvelle tâche ?
+      // Mais par convention, on reste sur le filtre actif. 
+      // Si on est sur "completed", la nouvelle tâche non terminée n'apparaîtra pas. 
+      // Pour une meilleure UX, on passe à "all" quand on ajoute une tâche.
+      // Cependant, on peut laisser l'utilisateur choisir : on reste sur le filtre courant.
+      // Mais pour éviter la confusion, si le filtre est "completed" on bascule sur "all" ?
+      if (currentFilter === 'completed') {
+        // On change le filtre en "all" mais on met à jour l'UI des boutons
+        currentFilter = 'all';
+        filterBtns.forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.dataset.filter === 'all') {
+            btn.classList.add('active');
+          }
+        });
+      }
+      render();
+    }
+
+    // ----- Gestion du filtre -----
+    function setFilter(filter) {
+      currentFilter = filter;
+      // Mettre à jour la classe active sur les boutons
+      filterBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.filter === filter) {
+          btn.classList.add('active');
+        }
+      });
+      render();
+    }
+
+    // ----- Supprimer toutes les tâches (avec confirmation) -----
+    function clearAllTasks() {
+      if (tasks.length === 0) return;
+      const confirmClear = confirm('Supprimer toutes les tâches ?');
+      if (!confirmClear) return;
+      tasks = [];
+      saveTasksToStorage();
+      render();
+    }
+
+    // ----- Initialisation et événements -----
+    function init() {
+      // Charger les données
+      loadTasksFromStorage();
+      // Sauvegarder immédiatement pour garantir la persistance
+      saveTasksToStorage();
+
+      // Rendu initial
+      render();
+
+      // Événement : clic sur "Ajouter"
+      addBtn.addEventListener('click', addTask);
+
+      // Événement : touche "Entrée" dans le champ
+      taskInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addTask();
+        }
+      });
+
+      // Événements : boutons de filtre
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filter = this.dataset.filter;
+          setFilter(filter);
+        });
+      });
+
+      // Événement : bouton "Supprimer tout"
+      clearAllBtn.addEventListener('click', clearAllTasks);
+
+      // Sauvegarde automatique : à chaque modification on sauvegarde (déjà fait dans add/delete/toggle)
+      // On ajoute aussi un sauvetage avant de quitter (bonus)
+      window.addEventListener('beforeunload', function() {
+        saveTasksToStorage();
+      });
+    }
+
+    // Lancer l'application
+    init();
+  })();
+</script>
+</body>
+</html>
