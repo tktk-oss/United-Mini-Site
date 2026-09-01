@@ -1,2 +1,0 @@
-- Le scroll de la page d'accueil en mode inspecton sur le navigateur bloque mais en extension mobile il n'y a pas de probleme majeur
-- On a l'icone en titre d'onglet du site qui n;est pas en accord avec le logo de l'hotel, a changer
